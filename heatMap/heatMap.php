@@ -31,4 +31,33 @@ try {
     // Handle any database connection errors and return as JSON
     die(json_encode(["error" => "Connection failed: " . $e->getMessage()]));
 }
+
+// Set header to return JSON
+header('Content-Type: application/json');
+
+// Handle POST requests for submitting hazard reports
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    
+    if(isset($_POST['heat'])){
+        $latitude = $_POST['latitude'];
+        $longitude = $_POST['longitude'];
+        $hazard_type = $_POST['hazard_type'];
+        $severity = $_POST['severity'];
+
+
+        if($latitude && $longitude && $hazard_type && $severity){
+            $stmt = $conn->prepare("INSERT INTO hazards_report (latitude, longitude, hazard_type, severity) VALUES (?, ?, ?, ?)");
+        }
+
+        $stmt->bind_param("ddsi", $latitude, $longitude, $hazard_type, $severity);
+        
+        if ($stmt->execute()) {
+            echo json_encode(["message" => "Data saved successfully"]);
+        } else {
+            echo json_encode(["error" => $stmt->error]);
+        }
+        $stmt->close();
+
+    }
+
 ?>
