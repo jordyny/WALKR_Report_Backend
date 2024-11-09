@@ -7,26 +7,23 @@ document.getElementById('hazardForm').addEventListener('submit', function(event)
     const severity = parseInt(document.getElementById('severity').value);
     
     // Send data to the PHP script to store in the database
-    fetch('heatMap.php', {
+    $.ajax({
+        url: 'heatMap.php', // Your PHP file
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
+        data: {
             latitude: latitude,
             longitude: longitude,
             hazard_type: hazard_type,
             severity: severity
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Hazard submitted successfully:', data);
-        // After submitting, refresh the heatmap
-        loadHeatmap();
-    })
-    .catch(error => {
-        console.error('Error:', error);
+        },
+        success: function(response) {
+            console.log('Hazard submitted successfully:', response);
+            // After submitting, refresh the heatmap
+            loadHeatmap();
+        },
+        error: function() {
+            console.error('Error:', error);
+        }
     });
 });
 
@@ -46,34 +43,36 @@ let map = new ol.Map({
 
 // Function to load heatmap data from the database
 function loadHeatmap() {
-    fetch('heatMap.php?action=get')
-    .then(response => response.json())
-    .then(data => {
-        const heatmapData = data.map(item => ({
-            lat: item.latitude,
-            lng: item.longitude,
-            value: item.severity
-        }));
+    $.ajax({
+        url: 'heatMap.php?action=get',
+        method: 'GET',
+        success: function(data) {
+            const heatmapData = data.map(item => ({
+                lat: item.latitude,
+                lng: item.longitude,
+                value: item.severity
+            }));
 
-        // Use Heatmap.js to create the heatmap layer
-        let heatmapLayer = new ol.layer.Heatmap({
-            source: new ol.source.Vector({
-                features: heatmapData.map(function(coord) {
-                    return new ol.Feature({
-                        geometry: new ol.geom.Point(ol.proj.fromLonLat([coord.lng, coord.lat])),
-                        weight: coord.value
-                    });
-                })
-            }),
-            blur: 15,
-            radius: 10
-        });
+            // Use Heatmap.js to create the heatmap layer
+            let heatmapLayer = new ol.layer.Heatmap({
+                source: new ol.source.Vector({
+                    features: heatmapData.map(function(coord) {
+                        return new ol.Feature({
+                            geometry: new ol.geom.Point(ol.proj.fromLonLat([coord.lng, coord.lat])),
+                            weight: coord.value
+                        });
+                    })
+                }),
+                blur: 15,
+                radius: 10
+            });
 
-        // Add heatmap layer to the map
-        map.addLayer(heatmapLayer);
-    })
-    .catch(error => {
-        console.error('Error loading heatmap data:', error);
+            // Add heatmap layer to the map
+            map.addLayer(heatmapLayer);
+        },
+        error: function() {
+            console.error('Error loading heatmap data:', error);
+        }
     });
 }
 
