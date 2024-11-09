@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
         if($latitude && $longitude && $hazard_type && $severity){
-            $stmt = $pdo->prepare("INSERT INTO hazards_report (latitude, longitude, hazard_type, severity) VALUES (?, ?, ?, ?)");
+            $stmt = $pdo->prepare("INSERT INTO hazard_reports (latitude, longitude, hazard_type, severity) VALUES (?, ?, ?, ?)");
         } else{
             echo json_encode(["error" => "Missing required fields"]);
             die();
