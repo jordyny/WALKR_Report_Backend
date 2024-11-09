@@ -62,7 +62,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             echo json_encode(["error" => $stmt->error]);
         }
-        $stmt->close();
 
     }
 }
