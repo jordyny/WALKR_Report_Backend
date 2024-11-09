@@ -1,25 +1,33 @@
 $(document).ready(function() {
     console.log("Document is ready");
 
+    let hazardData;
+
    // Function to handle hazard data submission
     function submitHazardData(latitude, longitude, hazardType, severity) {
+        hazardData = {
+            latitude: latitude,
+            longitude: longitude,
+            hazard_type: hazardType,
+            severity: severity,
+            heatMap: true // identifier for heat map
+        }; 
+
+        console.log("Hazard data stored in global variable:", hazardData);
+
         $.ajax({
             url: 'heatMap.php', // PHP script to handle the data
             method: 'POST',
-            data: {
-                heat: true, // identifier for heat map
-                latitude: latitude,
-                longitude: longitude,
-                hazard_type: hazardType,
-                severity: severity
-            },
+            data: hazardData,
             success: function(response) {
                 console.log('Hazard submitted successfully:', response);
                 // Optionally, refresh the heatmap after submission
                 // loadHeatmap();
             },
-            error: function(error) {
-                console.error('Error:', error);
+            error: function(xhr, status, error) {
+                console.error('AJAX Error - Status:', status);
+                console.error('AJAX Error - Message:', error);
+                console.error('AJAX Response:', xhr.responseText); // Get the server's response text
             }
         });
     }
