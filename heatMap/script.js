@@ -7,6 +7,7 @@ $(document).ready(function() {
             url: 'heatMap.php', // PHP script to handle the data
             method: 'POST',
             data: {
+                heat: true, // identifier for heat map
                 latitude: latitude,
                 longitude: longitude,
                 hazard_type: hazardType,
