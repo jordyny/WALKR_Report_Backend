@@ -7,7 +7,7 @@ document.getElementById('hazardForm').addEventListener('submit', function(event)
     const severity = parseInt(document.getElementById('severity').value);
     
     // Send data to the PHP script to store in the database
-    fetch('heatmap.php', {
+    fetch('heatMap.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -46,7 +46,7 @@ let map = new ol.Map({
 
 // Function to load heatmap data from the database
 function loadHeatmap() {
-    fetch('heatmap.php?action=get')
+    fetch('heatMap.php?action=get')
     .then(response => response.json())
     .then(data => {
         const heatmapData = data.map(item => ({
