@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hazard Heatmap</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/openlayers/6.13.1/ol.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/openlayers/6.13.1/ol.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/heatmap.js/2.0.2/heatmap.min.js"></script>
+    <style>
+        #map {
+            height: 500px;
+            width: 100%;
+        }
+        #form {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Report Hazard and View Heatmap</h1>
+    <form id="hazardForm">
+        <label for="latitude">Latitude:</label>
+        <input type="number" id="latitude" step="any" required><br>
+        <label for="longitude">Longitude:</label>
+        <input type="number" id="longitude" step="any" required><br>
+        <label for="hazard_type">Hazard Type:</label>
+        <input type="text" id="hazard_type" required><br>
+        <label for="severity">Severity:</label>
+        <input type="number" id="severity" min="1" max="10" required><br>
+        <button type="submit">Submit Hazard</button>
+    </form>
+
+    <div id="map"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
