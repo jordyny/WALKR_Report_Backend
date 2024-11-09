@@ -23,34 +23,28 @@ try {
 // Set header to return JSON
 header('Content-Type: application/json');
 
-// Handle POST requests
+// Handle POST requests for submitting hazard reports
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Get raw POST data
-    $data = json_decode(file_get_contents('php://input'), true);
+    // Get form data from POST request
+    $latitude = isset($_POST['latitude']) ? (float)$_POST['latitude'] : null;
+    $longitude = isset($_POST['longitude']) ? (float)$_POST['longitude'] : null;
+    $hazard_type = isset($_POST['hazard_type']) ? (string)$_POST['hazard_type'] : null;
+    $severity = isset($_POST['severity']) ? (int)$_POST['severity'] : null;
 
-    if (isset($data['latitude']) && isset($data['longitude']) && isset($data['hazard_type']) && isset($data['severity'])) {
-        $latitude = (float) $data['latitude'];  // Cast to float for latitude
-        $longitude = (float) $data['longitude']; // Cast to float for longitude
-        $hazard_type = (string) $data['hazard_type']; // Cast to string for hazard type
-        $severity = (int) $data['severity']; // Cast to integer for severity
-
-        // Insert hazard report into the database
-        $stmt = $pdo->prepare('INSERT INTO hazard_reports (latitude, longitude, hazard_type, severity) 
-                               VALUES (:latitude, :longitude, :hazard_type, :severity)');
+    if ($latitude && $longitude && $hazard_type && $severity !== null) {
+        // Insert hazard report into the database without parameter binding
+        $query = "INSERT INTO hazard_reports (latitude, longitude, hazard_type, severity) 
+                  VALUES ($latitude, $longitude, '$hazard_type', $severity)";
         
-        // Bind parameters without specifying the type
-        $stmt->bindParam(':latitude', $latitude);
-        $stmt->bindParam(':longitude', $longitude);
-        $stmt->bindParam(':hazard_type', $hazard_type);
-        $stmt->bindParam(':severity', $severity);
-
-        if ($stmt->execute()) {
+        if ($pdo->exec($query)) {
             echo json_encode(["message" => "Hazard report saved successfully"]);
         } else {
             echo json_encode(["error" => "Error saving hazard report"]);
         }
-        exit;
+    } else {
+        echo json_encode(["error" => "Missing required data"]);
     }
+    exit;
 }
 
 // Handle GET requests to fetch heatmap data
