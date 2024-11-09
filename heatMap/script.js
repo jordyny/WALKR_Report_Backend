@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-    // Function to handle hazard data submission
+   // Function to handle hazard data submission
     function submitHazardData(latitude, longitude, hazardType, severity) {
         $.ajax({
             url: 'heatMap.php', // PHP script to handle the data
