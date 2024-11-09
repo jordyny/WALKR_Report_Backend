@@ -25,16 +25,20 @@ header('Content-Type: application/json');
 
 // Handle POST requests
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Handle hazard data
-    if (isset($_POST['latitude']) && isset($_POST['longitude']) && isset($_POST['hazard_type']) && isset($_POST['severity'])) {
-        $latitude = $_POST['latitude'];
-        $longitude = $_POST['longitude'];
-        $hazard_type = $_POST['hazard_type'];
-        $severity = $_POST['severity'];
+    // Get raw POST data
+    $data = json_decode(file_get_contents('php://input'), true);
+
+    if (isset($data['latitude']) && isset($data['longitude']) && isset($data['hazard_type']) && isset($data['severity'])) {
+        $latitude = (float) $data['latitude'];  // Cast to float for latitude
+        $longitude = (float) $data['longitude']; // Cast to float for longitude
+        $hazard_type = (string) $data['hazard_type']; // Cast to string for hazard type
+        $severity = (int) $data['severity']; // Cast to integer for severity
 
         // Insert hazard report into the database
         $stmt = $pdo->prepare('INSERT INTO hazard_reports (latitude, longitude, hazard_type, severity) 
                                VALUES (:latitude, :longitude, :hazard_type, :severity)');
+        
+        // Bind parameters without specifying the type
         $stmt->bindParam(':latitude', $latitude);
         $stmt->bindParam(':longitude', $longitude);
         $stmt->bindParam(':hazard_type', $hazard_type);
@@ -58,5 +62,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['act
     echo json_encode($results);
     exit;
 }
-
 ?>
