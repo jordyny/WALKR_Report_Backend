@@ -20,6 +20,10 @@ try {
     die(json_encode(["error" => "Connection failed: " . $e->getMessage()]));
 }
 
+if ($pdo) {
+    echo json_encode(["message" => "Database connection successful"]);
+}
+
 // Set header to return JSON
 header('Content-Type: application/json');
 
@@ -34,9 +38,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($latitude && $longitude && $hazard_type && $severity !== null) {
         // Insert hazard report into the database
         $query = "INSERT INTO hazard_reports (latitude, longitude, hazard_type, severity) 
-                  VALUES ($latitude, $longitude, '$hazard_type', $severity)";
-        
-        if ($pdo->exec($query)) {
+        VALUES (:latitude, :longitude, :hazard_type, :severity)";
+        $stmt = $pdo->prepare($query);
+
+        if ($stmt->execute([':latitude' => $latitude, ':longitude' => $longitude, ':hazard_type' => $hazard_type, ':severity' => $severity])) {
             echo json_encode(["message" => "Hazard report saved successfully"]);
         } else {
             echo json_encode(["error" => "Error saving hazard report"]);
