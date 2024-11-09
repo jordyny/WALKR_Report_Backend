@@ -38,7 +38,7 @@ header('Content-Type: application/json');
 // Handle POST requests for submitting hazard reports
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
-    if(isset($_POST['hazardData'])){
+    if(isset($_POST['heatMap'])){
         $latitude = $_POST['latitude'];
         $longitude = $_POST['longitude'];
         $hazard_type = $_POST['hazard_type'];
