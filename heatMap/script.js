@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    console.log("Document is ready");
 
    // Function to handle hazard data submission
     function submitHazardData(latitude, longitude, hazardType, severity) {
