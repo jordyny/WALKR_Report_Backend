@@ -32,6 +32,12 @@ $(document).ready(function() {
         const hazardType = $('#hazard_type').val();
         const severity = $('#severity').val();
 
+
+        console.log('Latitude:', latitude);
+        console.log('Longitude:', longitude);
+        console.log('Hazard Type:', hazardType);
+        console.log('Severity:', severity);
+        
         // Submit the hazard data to the PHP script
         submitHazardData(latitude, longitude, hazardType, severity);
     });
