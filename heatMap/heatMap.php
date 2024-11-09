@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $severity = isset($_POST['severity']) ? (int)$_POST['severity'] : null;
 
     if ($latitude && $longitude && $hazard_type && $severity !== null) {
-        // Insert hazard report into the database without parameter binding
+        // Insert hazard report into the database
         $query = "INSERT INTO hazard_reports (latitude, longitude, hazard_type, severity) 
                   VALUES ($latitude, $longitude, '$hazard_type', $severity)";
         
