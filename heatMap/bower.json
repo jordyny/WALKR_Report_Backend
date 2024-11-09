@@ -1,0 +1,14 @@
+{
+  "name": "heatMap",
+  "homepage": "https://github.com/jordyny/WALKR_Report_Backend",
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
