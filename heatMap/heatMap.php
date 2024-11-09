@@ -61,6 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo json_encode(["message" => "Data saved successfully"]);
         } else {
             echo json_encode(["error" => $stmt->error]);
+            exit();
         }
 
     }
