@@ -15,7 +15,7 @@ $(document).ready(function() {
             success: function(response) {
                 console.log('Hazard submitted successfully:', response);
                 // Optionally, refresh the heatmap after submission
-                loadHeatmap();
+                // loadHeatmap();
             },
             error: function(error) {
                 console.error('Error:', error);
