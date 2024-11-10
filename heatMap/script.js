@@ -78,13 +78,6 @@ $(document).ready(function() {
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 }).addTo(map);
-
-                // // Add heatmap layer using the heatmap.js plugin
-                // var heat = L.heatLayer(heatmapData, {
-                //     radius: 25,
-                //     blur: 15,
-                //     maxZoom: 17
-                // }).addTo(map);
                 var cfg = {
                     radius: 0.05, // Set radius of the heatmap points
                     maxOpacity: .8, 
