@@ -64,7 +64,7 @@ $(document).ready(function() {
                 // Process the data received from the server
                 data.forEach(function(item) {
                     // Push each hazard's latitude, longitude, and severity into the heatmap data
-                    heatmapData.push([0.5, item.longitude, item.severity]);
+                    heatmapData.push([item.latitude, item.longitude, item.severity]);
                 });
                 
 
@@ -94,7 +94,7 @@ $(document).ready(function() {
           
                 var heatmapLayer = new HeatmapOverlay(cfg).addTo(map);
 
-                heatmapLayer.setData({ data: heatmapData });
+                heatmapLayer.setData(hazardData);
             },
             error: function(xhr, status, error) {
                 console.error('Error loading heatmap data:', error);
