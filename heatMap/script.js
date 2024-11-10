@@ -76,7 +76,7 @@ $(document).ready(function() {
                 }).addTo(map);
 
                 // // Add heatmap layer using the heatmap.js plugin
-                // var heat = L.heatLayer(heatmapData, {radius: 25, blur: 15, maxZoom: 17}).addTo(map);
+                var heat = L.heatLayer(heatmapData, {radius: 25, blur: 15, maxZoom: 17}).addTo(map);
             },
             error: function(xhr, status, error) {
                 console.error('Error loading heatmap data:', error);
