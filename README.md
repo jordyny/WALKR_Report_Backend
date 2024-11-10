@@ -1,15 +1,7 @@
-Backend For HACKRPI WALKR
+Heat Map for Hazard Severity
 
+# Notes on Usage
+1. Download necessary packages
+2. This heat map is hosted on Azure VM
 
-take in coordinates, hazard.
-display on front end with heat map from google apis
-
-
-CREATE TABLE hazard_reports (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    latitude DECIMAL(10, 8) NOT NULL,
-    longitude DECIMAL(11, 8) NOT NULL,
-    hazard_type VARCHAR(50) NOT NULL,
-    severity INT NOT NULL,
-    report_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+This website uses PHP and SQL. JavaScript is used to take the data from form submission, put it into the SQL database, and PHP is used to pull that data and put it into the OpenStreets map and heatmap.js overlay. 

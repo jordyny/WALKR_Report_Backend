@@ -5,31 +5,96 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hazard Heatmap</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/openlayers/6.13.1/ol.css" />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/heatmap.js@2.0.5/build/heatmap.min.js"></script>
-    <!-- Include Heatmap.js -->
     <script src="https://unpkg.com/leaflet-heatmap/leaflet-heat.js"></script>
-    <script src="../plugins/leaflet-heatmap.js"></script>    <style>
-        #map {
-            height: 500px;
-            width: 100%;
+    
+    <style>
+        /* General Body Styling */
+        body {
+            background-color: #0e0e0e;
+            color: #00fff6;
+            font-family: 'Roboto', sans-serif;
+            text-align: center;
+            padding: 20px;
+            overflow-x: hidden;
         }
-        #hazardForm {
+
+        h1 {
+            color: #00fff6;
+            font-size: 2em;
+            font-weight: 700;
+            text-shadow: 0 0 15px #00fff6, 0 0 30px #00ffff;
             margin-bottom: 20px;
         }
+
+        /* Form Container */
+        #hazardForm {
+            background-color: #1c1c1c;
+            border: 2px solid #00fff6;
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 400px;
+            margin: 0 auto 20px auto;
+            box-shadow: 0 0 15px rgba(0, 255, 246, 0.8);
+        }
+
+        /* Labels */
         label {
+            color: #00fff6;
+            font-weight: bold;
+            font-size: 1.1em;
             margin-top: 10px;
             display: block;
         }
+
+        /* Inputs */
         input {
-            margin-bottom: 10px;
-            width: 100%;
+            margin-bottom: 15px;
+            width: 90%;
+            padding: 10px;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            background-color: #2a2a2a;
+            color: #00fff6;
+            outline: none;
+            text-align: center;
         }
+
+        input:focus {
+            border: 1px solid #00fff6;
+            box-shadow: 0 0 8px #00fff6;
+        }
+
+        /* Submit Button */
         button {
+            background: #00fff6;
+            color: #0e0e0e;
+            font-size: 1.2em;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
             padding: 10px 20px;
             cursor: pointer;
+            transition: background 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 255, 246, 0.7);
+        }
+
+        button:hover {
+            background: #00ffff;
+        }
+
+        /* Map Container */
+        #map {
+            height: 500px;
+            width: 100%;
+            border: 3px solid #00fff6;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 255, 246, 0.7);
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -48,7 +113,7 @@
         <input type="text" id="hazard_type" required><br>
 
         <label for="severity">Severity (0-1):</label>
-        <input type="number" id="severity" min="0.0" max="1.0" step = "any" required><br>
+        <input type="number" id="severity" min="0.0" max="1.0" step="any" required><br>
 
         <button type="submit">Submit Hazard</button>
     </form>
