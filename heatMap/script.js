@@ -93,10 +93,8 @@ $(document).ready(function() {
                   };
           
                 var heatmapLayer = new HeatmapOverlay(cfg).addTo(map);
-                heatmapLayer.setData({
-                    max: 8, // You can adjust this max value to fit your needs
-                    data: heatmapData
-                  });
+
+                heatmapLayer.setData(heatmapData);
             },
             error: function(xhr, status, error) {
                 console.error('Error loading heatmap data:', error);
