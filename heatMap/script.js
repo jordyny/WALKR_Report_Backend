@@ -50,6 +50,20 @@ $(document).ready(function() {
         // Submit the hazard data to the PHP script
         submitHazardData(latitude, longitude, hazardType, severity);
     });
+
+        // Initialize the OpenLayers map
+        let map = new ol.Map({
+            target: 'map',
+            layers: [
+                new ol.layer.Tile({
+                    source: new ol.source.OSM()
+                })
+            ],
+            view: new ol.View({
+                center: ol.proj.fromLonLat([0, 0]),
+                zoom: 2
+            })
+        });
 });
 
 // // Initialize the OpenLayers map
