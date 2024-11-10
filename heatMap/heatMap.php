@@ -26,7 +26,6 @@ try {
     // Create a new PDO instance and set attributes for error handling
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo json_encode(["message" => "Database connection successful"]);
 } catch (PDOException $e) {
     // Handle any database connection errors and return as JSON
     die(json_encode(["error" => "Connection failed: " . $e->getMessage()]));
