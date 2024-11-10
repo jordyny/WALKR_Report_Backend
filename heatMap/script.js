@@ -66,6 +66,7 @@ $(document).ready(function() {
                     // Push each hazard's latitude, longitude, and severity into the heatmap data
                     heatmapData.push([item.latitude, item.longitude, item.severity]);
                 });
+                
 
                 // // Initialize the Leaflet map
                 var map = L.map('map').setView([51.505, -0.09], 13); // Example center point and zoom level
@@ -76,7 +77,26 @@ $(document).ready(function() {
                 }).addTo(map);
 
                 // // Add heatmap layer using the heatmap.js plugin
-                var heat = L.heatLayer(heatmapData, {radius: 25, blur: 15, maxZoom: 17}).addTo(map);
+                // var heat = L.heatLayer(heatmapData, {
+                //     radius: 25,
+                //     blur: 15,
+                //     maxZoom: 17
+                // }).addTo(map);
+                var cfg = {
+                    radius: 25, // Set radius of the heatmap points
+                    maxOpacity: .8, 
+                    scaleRadius: true,
+                    useLocalExtrema: true,
+                    latField: 'latitude',
+                    lngField: 'longitude',
+                    valueField: 'severity'
+                  };
+          
+                var heatmapLayer = new HeatmapOverlay(cfg).addTo(map);
+                heatmapLayer.setData({
+                    max: 8, // You can adjust this max value to fit your needs
+                    data: heatmapData
+                  });
             },
             error: function(xhr, status, error) {
                 console.error('Error loading heatmap data:', error);
