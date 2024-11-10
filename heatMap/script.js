@@ -86,7 +86,7 @@ $(document).ready(function() {
                 //     maxZoom: 17
                 // }).addTo(map);
                 var cfg = {
-                    radius: 1, // Set radius of the heatmap points
+                    radius: 0.05, // Set radius of the heatmap points
                     maxOpacity: .8, 
                     scaleRadius: true,
                     useLocalExtrema: true,
