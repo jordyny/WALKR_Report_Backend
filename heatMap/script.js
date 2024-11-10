@@ -51,19 +51,43 @@ $(document).ready(function() {
         submitHazardData(latitude, longitude, hazardType, severity);
     });
 
-        // Initialize the OpenLayers map
-        let map = new ol.Map({
-            target: 'map',
-            layers: [
-                new ol.layer.Tile({
-                    source: new ol.source.OSM()
-                })
-            ],
-            view: new ol.View({
-                center: ol.proj.fromLonLat([0, 0]),
-                zoom: 2
-            })
+    function loadHeatmap() {
+        $.ajax({
+            url: 'heatMap.php', // PHP script to retrieve the hazard data
+            method: 'GET',
+            success: function(data) {
+                console.log('Data received for heatmap:', data);
+
+                // Create an array to hold the heatmap data points
+                let heatmapData = [];
+
+                // Process the data received from the server
+                data.forEach(function(item) {
+                    // Push each hazard's latitude, longitude, and severity into the heatmap data
+                    heatmapData.push([item.latitude, item.longitude, item.severity]);
+                });
+
+                // // Initialize the Leaflet map
+                // var map = L.map('map').setView([51.505, -0.09], 13); // Example center point and zoom level
+
+                // // Add OpenStreetMap layer to the map
+                // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                //     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                // }).addTo(map);
+
+                // // Add heatmap layer using the heatmap.js plugin
+                // var heat = L.heatLayer(heatmapData, {radius: 25, blur: 15, maxZoom: 17}).addTo(map);
+            },
+            error: function(xhr, status, error) {
+                console.error('Error loading heatmap data:', error);
+            }
         });
+    }
+
+    // Load the heatmap when the page loads
+    loadHeatmap();
+
+    
 });
 
 // // Initialize the OpenLayers map
