@@ -67,4 +67,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    try {
+        // Retrieve all hazard reports from the database
+        $stmt = $pdo->prepare("SELECT latitude, longitude, severity FROM hazard_reports");
+        $stmt->execute();
+        $hazardData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // Return the data as JSON
+        echo json_encode($hazardData);
+        exit();
+    } catch (PDOException $e) {
+        echo json_encode(["error" => "Error fetching hazard data: " . $e->getMessage()]);
+        exit();
+    }
+}
+
 ?>
