@@ -72,7 +72,7 @@ $(document).ready(function() {
                 
 
                 // // Initialize the Leaflet map
-                var map = L.map('map').setView([51.505, -0.09], 13); // Example center point and zoom level
+                var map = L.map('map').setView([39.8283, -98.5795], 5); // Example center point and zoom level
                 console.log("Map initialized:", map);
                 // // Add OpenStreetMap layer to the map
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
