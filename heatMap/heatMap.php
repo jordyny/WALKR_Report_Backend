@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bindParam(1, $latitude, PDO::PARAM_STR);  // latitude as a float
         $stmt->bindParam(2, $longitude, PDO::PARAM_STR);  // longitude as a float
         $stmt->bindParam(3, $hazard_type, PDO::PARAM_STR);
-        $stmt->bindParam(4, $severity, PDO::PARAM_INT);
+        $stmt->bindParam(4, $severity, PDO::PARAM_STR);
                 
         if ($stmt->execute()) {
             echo json_encode(["message" => "Data saved successfully"]);
